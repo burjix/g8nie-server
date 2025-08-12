@@ -13,7 +13,7 @@ This file tracks all projects and their corresponding GitHub repositories. Each 
 ### Applications
 | Project | Repository | Description | Status |
 |---------|------------|-------------|---------|
-| G8NIE Landing Page | [g8nie-landing](https://github.com/burjix/g8nie-landing) | Retro-futuristic cyberpunk landing page with CRT aesthetics | 🔄 In Progress |
+| G8NIE Landing Page | [g8nie-landing](https://github.com/burjix/g8nie-landing) | Retro-futuristic cyberpunk landing page with CRT aesthetics | 🚀 Deployed |
 
 ### Libraries & Tools
 | Project | Repository | Description | Status |
@@ -50,4 +50,4 @@ This file tracks all projects and their corresponding GitHub repositories. Each 
 
 ---
 *Last Updated: 2025-08-12*  
-*Total Repositories: 1*
+*Total Repositories: 2*
