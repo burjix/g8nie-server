@@ -13,7 +13,7 @@ This file tracks all projects and their corresponding GitHub repositories. Each 
 ### Applications
 | Project | Repository | Description | Status |
 |---------|------------|-------------|---------|
-| *Future applications will be listed here* | | | |
+| G8NIE Landing Page | [g8nie-landing](https://github.com/burjix/g8nie-landing) | Retro-futuristic cyberpunk landing page with CRT aesthetics | 🔄 In Progress |
 
 ### Libraries & Tools
 | Project | Repository | Description | Status |
