@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G8NIE - Digital Architect</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00ff00;
+            --secondary: #ff00ff;
+            --accent: #00ffff;
+            --dark: #0a0a0a;
+            --darker: #050505;
+            --grid: #1a1a1a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Orbitron', monospace;
+            background: var(--darker);
+            color: var(--primary);
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            z-index: 9999;
+            pointer-events: none;
+            box-shadow: 0 0 10px var(--primary);
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Pixel Grid Background */
+        .pixel-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(26, 26, 26, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(26, 26, 26, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            z-index: 1;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(20px, 20px); }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--accent);
+            box-shadow: 0 0 6px var(--accent);
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            from {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            to {
+                transform: translateY(-10vh) translateX(50px);
+                opacity: 0;
+            }
+        }
+
+        /* Main Container */
+        .container {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        /* ASCII Art Header */
+        .ascii-art {
+            font-size: clamp(8px, 1.5vw, 12px);
+            line-height: 1;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+            font-family: 'Courier New', monospace;
+            white-space: pre;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px var(--primary); }
+            to { text-shadow: 0 0 20px var(--primary), 0 0 30px var(--primary); }
+        }
+
+        /* Main Title */
+        .title {
+            font-size: clamp(3rem, 8vw, 8rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbow 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px var(--primary));
+        }
+
+        @keyframes rainbow {
+            0%, 100% { filter: hue-rotate(0deg) drop-shadow(0 0 10px var(--primary)); }
+            33% { filter: hue-rotate(120deg) drop-shadow(0 0 10px var(--accent)); }
+            66% { filter: hue-rotate(240deg) drop-shadow(0 0 10px var(--secondary)); }
+        }
+
+        /* Subtitle */
+        .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.8rem);
+            margin-bottom: 3rem;
+            color: var(--accent);
+            text-shadow: 0 0 10px var(--accent);
+            animation: typewriter 4s steps(40) 1s forwards;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 0;
+        }
+
+        @keyframes typewriter {
+            to { width: 100%; }
+        }
+
+        /* Info Cards */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .info-card {
+            background: rgba(26, 26, 26, 0.8);
+            border: 2px solid var(--primary);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary), var(--accent), var(--secondary), var(--primary));
+            z-index: -1;
+            animation: borderGlow 3s linear infinite;
+        }
+
+        @keyframes borderGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 0, 0.3);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .card-text {
+            font-size: 0.9rem;
+            color: var(--accent);
+            line-height: 1.4;
+        }
+
+        /* Terminal Window */
+        .terminal {
+            background: var(--dark);
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 2rem;
+            width: 100%;
+            max-width: 600px;
+            font-family: 'Courier New', monospace;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.2);
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--primary);
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 0.5rem;
+            margin-right: 1rem;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--secondary);
+        }
+
+        .terminal-title {
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        .terminal-content {
+            color: var(--accent);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .prompt {
+            color: var(--primary);
+        }
+
+        .command {
+            color: var(--secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .ascii-art {
+                font-size: 8px;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            animation: glitch-1 2s infinite;
+            color: var(--secondary);
+            z-index: -1;
+        }
+
+        .glitch::after {
+            animation: glitch-2 2s infinite;
+            color: var(--accent);
+            z-index: -2;
+        }
+
+        @keyframes glitch-1 {
+            0%, 14%, 15%, 49%, 50%, 99%, 100% {
+                transform: translateX(0);
+            }
+            15%, 49% {
+                transform: translateX(-2px);
+            }
+        }
+
+        @keyframes glitch-2 {
+            0%, 20%, 21%, 62%, 63%, 99%, 100% {
+                transform: translateX(0);
+            }
+            21%, 62% {
+                transform: translateX(2px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="pixel-grid"></div>
+    <div class="particles"></div>
+
+    <div class="container">
+        <div class="ascii-art">
+████████╗██╗  ██╗███████╗     ██████╗  █████╗ ███╗   ██╗██╗███████╗
+╚══██╔══╝██║  ██║██╔════╝    ██╔════╝ ██╔══██╗████╗  ██║██║██╔════╝
+   ██║   ███████║█████╗      ██║  ███╗╚█████╔╝██╔██╗ ██║██║█████╗  
+   ██║   ██╔══██║██╔══╝      ██║   ██║██╔══██╗██║╚██╗██║██║██╔══╝  
+   ██║   ██║  ██║███████╗    ╚██████╔╝╚█████╔╝██║ ╚████║██║███████╗
+   ╚═╝   ╚═╝  ╚═╝╚══════╝     ╚═════╝  ╚════╝ ╚═╝  ╚═══╝╚═╝╚══════╝
+        </div>
+
+        <h1 class="title glitch" data-text="G8NIE">G8NIE</h1>
+        <p class="subtitle">Digital Architect • Code Weaver • System Whisperer</p>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <span class="card-icon">⚡</span>
+                <h3 class="card-title">Lightning Fast</h3>
+                <p class="card-text">Crafting digital experiences at the speed of thought. Every millisecond matters.</p>
+            </div>
+            
+            <div class="info-card">
+                <span class="card-icon">🧠</span>
+                <h3 class="card-title">AI-Powered</h3>
+                <p class="card-text">Merging human creativity with artificial intelligence to build the impossible.</p>
+            </div>
+            
+            <div class="info-card">
+                <span class="card-icon">🔒</span>
+                <h3 class="card-title">Ultra Secure</h3>
+                <p class="card-text">Military-grade security meets elegant design. Your data is sacred.</p>
+            </div>
+        </div>
+
+        <div class="terminal">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="terminal-title">g8nie@nexus:~$</div>
+            </div>
+            <div class="terminal-content">
+                <div><span class="prompt">$</span> <span class="command">whoami</span></div>
+                <div>digital_architect</div>
+                <div><span class="prompt">$</span> <span class="command">ls -la current_projects/</span></div>
+                <div>drwxr-xr-x  .  classified/</div>
+                <div>drwxr-xr-x  .. revolutionary_apps/</div>
+                <div>-rw-r--r--  next_gen_solutions</div>
+                <div><span class="prompt">$</span> <span class="command">cat mission.txt</span></div>
+                <div>Building the future, one pixel at a time...</div>
+                <div><span class="prompt">$</span> <span class="command blink">_</span></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Custom cursor
+        const cursor = document.querySelector('.cursor');
+        let mouseX = 0, mouseY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function updateCursor() {
+            cursor.style.left = mouseX + 'px';
+            cursor.style.top = mouseY + 'px';
+            requestAnimationFrame(updateCursor);
+        }
+        updateCursor();
+
+        // Generate particles
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+            document.querySelector('.particles').appendChild(particle);
+
+            // Remove particle after animation
+            setTimeout(() => {
+                if (particle.parentNode) {
+                    particle.parentNode.removeChild(particle);
+                }
+            }, 20000);
+        }
+
+        // Create particles continuously
+        setInterval(createParticle, 500);
+
+        // Initial particles
+        for (let i = 0; i < 20; i++) {
+            setTimeout(createParticle, i * 100);
+        }
+
+        // Konami code easter egg
+        let konamiCode = [];
+        const sequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
+
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.code);
+            if (konamiCode.length > sequence.length) {
+                konamiCode.shift();
+            }
+            
+            if (konamiCode.join(',') === sequence.join(',')) {
+                document.body.style.filter = 'hue-rotate(180deg)';
+                setTimeout(() => {
+                    document.body.style.filter = 'none';
+                }, 3000);
+                konamiCode = [];
+            }
+        });
+
+        // Matrix rain effect on click
+        document.addEventListener('click', () => {
+            const chars = '01';
+            const rain = document.createElement('div');
+            rain.style.position = 'fixed';
+            rain.style.top = '0';
+            rain.style.left = Math.random() * 100 + '%';
+            rain.style.color = 'var(--primary)';
+            rain.style.fontSize = '14px';
+            rain.style.fontFamily = 'Courier New';
+            rain.style.zIndex = '5';
+            rain.style.pointerEvents = 'none';
+            rain.textContent = chars[Math.floor(Math.random() * chars.length)];
+            
+            document.body.appendChild(rain);
+            
+            let pos = 0;
+            const fall = setInterval(() => {
+                pos += 2;
+                rain.style.top = pos + 'px';
+                rain.style.opacity = (100 - pos) / 100;
+                
+                if (pos > window.innerHeight) {
+                    clearInterval(fall);
+                    document.body.removeChild(rain);
+                }
+            }, 50);
+        });
+
+        // Typing effect for terminal
+        setTimeout(() => {
+            const blink = document.querySelector('.blink');
+            if (blink) {
+                setInterval(() => {
+                    blink.style.opacity = blink.style.opacity === '0' ? '1' : '0';
+                }, 500);
+            }
+        }, 2000);
+    </script>
+</body>
+</html>
