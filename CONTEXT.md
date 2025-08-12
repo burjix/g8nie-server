@@ -142,7 +142,23 @@
   - Set up performance optimizations for all services
   - Created reusable deployment script for future applications
 - **Knowledge gained**: Server is production-ready with all essential services configured and secured
-- **Next session should**: Configure DNS records for g8nie.com and enable SSL certificate once DNS propagates 
+- **Next session should**: Configure DNS records for g8nie.com and enable SSL certificate once DNS propagates
+
+### 2025-08-12 - Session 3 Notes
+- **What was accomplished**: 
+  - Fixed DNS/GitHub connectivity issues and enabled SSL
+  - Created retro pixel-art landing page with cyberpunk aesthetics
+  - Implemented repository management system with dedicated project tracking
+- **Key decisions made**:
+  - Each project gets separate GitHub repository for clean separation
+  - Created PROJECT_REPOS.md for centralized project-to-repo mapping
+  - Established naming conventions and workflow procedures
+- **Problems solved**:
+  - SSL certificate setup with correct email
+  - Landing page emoji removal and 2x2 grid layout
+  - Repository organization and tracking system
+- **Knowledge gained**: Multi-repository pattern documented in knowledge base
+- **Next session should**: Continue with any new project development using established repository workflow 
 
 ## Standard Operating Procedures
 
@@ -153,11 +169,13 @@
 4. Continue from last session's "Next session should" notes
 
 ### Creating a New Project
-1. Create project directory: `mkdir -p /home/claude/projects/[name]`
-2. Copy template: `cp /home/claude/templates/PROJECT_CONTEXT.md /home/claude/projects/[name]/`
-3. Initialize git repository
-4. Update this file's Active Projects section
-5. Create initial structure based on project type
+1. **Determine Repository Need**: Each distinct project gets its own GitHub repository
+2. **Create GitHub Repository**: Use consistent naming (lowercase, hyphen-separated)
+3. **Update PROJECT_REPOS.md**: Add entry mapping project to repository
+4. **Create Local Directory**: `mkdir -p /home/claude/projects/[name]`
+5. **Copy Template**: `cp /home/claude/templates/PROJECT_CONTEXT.md /home/claude/projects/[name]/`
+6. **Initialize Git**: Connect to dedicated GitHub repository
+7. **Update Active Projects**: Add to this file's Active Projects section
 
 ### After Completing Work
 1. Update relevant PROJECT_CONTEXT.md
