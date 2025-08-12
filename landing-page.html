@@ -168,7 +168,7 @@
         /* Info Cards */
         .info-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 2rem;
             margin-bottom: 3rem;
             width: 100%;
@@ -286,10 +286,17 @@
             
             .info-grid {
                 grid-template-columns: 1fr;
+                gap: 1.5rem;
             }
             
             .container {
                 padding: 1rem;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .info-grid {
+                gap: 1.5rem;
             }
         }
 
@@ -359,21 +366,27 @@
 
         <div class="info-grid">
             <div class="info-card">
-                <span class="card-icon">⚡</span>
+                <span class="card-icon">◈</span>
                 <h3 class="card-title">Lightning Fast</h3>
                 <p class="card-text">Crafting digital experiences at the speed of thought. Every millisecond matters.</p>
             </div>
             
             <div class="info-card">
-                <span class="card-icon">🧠</span>
+                <span class="card-icon">◉</span>
                 <h3 class="card-title">AI-Powered</h3>
                 <p class="card-text">Merging human creativity with artificial intelligence to build the impossible.</p>
             </div>
             
             <div class="info-card">
-                <span class="card-icon">🔒</span>
+                <span class="card-icon">◆</span>
                 <h3 class="card-title">Ultra Secure</h3>
                 <p class="card-text">Military-grade security meets elegant design. Your data is sacred.</p>
+            </div>
+            
+            <div class="info-card">
+                <span class="card-icon">◇</span>
+                <h3 class="card-title">Neural Networks</h3>
+                <p class="card-text">Advanced machine learning algorithms processing infinite possibilities in real-time.</p>
             </div>
         </div>
 
