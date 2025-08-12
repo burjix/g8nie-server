@@ -31,7 +31,8 @@
       "Bash(git remote add:*)",
       "Bash(git push:*)",
       "Bash(gh:*)",
-      "Bash(git remote set-url:*)"
+      "Bash(git remote set-url:*)",
+      "Bash(/home/claude/scripts/server-monitor.sh:*)"
     ],
     "deny": [],
     "ask": []
